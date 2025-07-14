@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   sort.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaeda <kmaeda@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/11 13:55:22 by kmaeda            #+#    #+#             */
-/*   Updated: 2025/07/11 14:13:14 by kmaeda           ###   ########.fr       */
+/*   Created: 2025/07/14 17:53:23 by kmaeda            #+#    #+#             */
+/*   Updated: 2025/07/14 18:03:15 by kmaeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "push_swap.h"
 
-# include <limits.h>
-
-typedef struct s_list
+void	sort_3(t_data *data)
 {
-	int				index;
-	void			*content;
-	struct s_list	*next;
-}		t_list;
 
-typedef struct s_data
-{
-	char	*s;
-}	t_data;
-
-#endif
+}
