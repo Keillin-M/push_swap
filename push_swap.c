@@ -31,7 +31,7 @@ int	valid_int(const char *nptr)
 	{
 		result = result * 10 + (*nptr - '0');
 		if ((sign == 1 && result > 2147483647)
-			|| sign == -1 && (result > 2147483648))
+			|| (sign == -1 && result > 2147483648))
 			return (1);
 		nptr++;
 	}
@@ -61,8 +61,8 @@ int	input_check(t_data *data, int num, int i)
 int	get_input(int argc, char **argv, t_list **stack_a, t_data *data)
 {
 	int		i;
-	int		j;
 	int		num;
+	int	*val;
 	t_list	*new;
 
 	data->s = malloc(sizeof(int) * (argc - 1));
@@ -74,9 +74,11 @@ int	get_input(int argc, char **argv, t_list **stack_a, t_data *data)
 		if (valid_int(argv[i + 1]))
 			return (perror ("Error\n"), 1);
 		num = ft_atoi(argv[i + 1]);
+		val = malloc(sizeof(int));
+		*val = num;
 		if (input_check(data, num, i))
 			return (perror ("Error\n"), 1);
-		new = ft_lstnew(num);
+		new = ft_lstnew(val);
 		if (!new)
 			return (perror ("Error\n"), 1);
 		ft_lstadd_back(stack_a, new);
@@ -87,12 +89,32 @@ int	get_input(int argc, char **argv, t_list **stack_a, t_data *data)
 
 int	main(int argc, char **argv)
 {
-	t_list	**stack_a = NULL;
+	t_list	*stack_a = NULL;
 	t_data	data;
+	t_list	*temp;
 
 	if (argc < 2)
 		return (1);
 	if (get_input(argc, argv, &stack_a, &data))
 		return (1);
+	l_index(&stack_a, &data, argc);
+	if (argc == 4)
+	{
+		sort_3(&stack_a);
+		return (0);
+	}
+	temp = stack_a;
+	while (temp)
+	{
+		ft_printf("Value[%d]: %d\n", temp->index, *(int *)temp->content);
+		temp = temp->next;
+	}
+	while (stack_a)
+	{
+		temp = stack_a->next;
+		free(stack_a);
+		stack_a = temp;
+	}
+	free(data.s);
 	return (0);
 }

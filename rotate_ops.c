@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   rotate_ops.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaeda <kmaeda@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/19 12:20:00 by kmaeda            #+#    #+#             */
-/*   Updated: 2025/05/19 12:41:04 by kmaeda           ###   ########.fr       */
+/*   Created: 2025/07/15 15:54:46 by kmaeda            #+#    #+#             */
+/*   Updated: 2025/07/15 16:16:10 by kmaeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
-t_list	*ft_lstnew(int *content)
+void	ra(t_list **a)
 {
-	t_list	*new;
+	rotate(a);
+	ft_printf("ra\n");
+}
 
-	new = malloc(sizeof (t_list));
-	if (new == NULL)
-		return (NULL);
-	new->content = content;
-	new->next = NULL;
-	return (new);
+void	rb(t_list **b)
+{
+	rotate(b);
+	ft_printf("rb\n");
+}
+
+void	rr(t_list **a, t_list **b)
+{
+	rotate(a);
+	rotate(b);
+	ft_printf("rr\n");
 }

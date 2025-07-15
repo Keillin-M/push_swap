@@ -14,17 +14,43 @@
 # define PUSH_SWAP_H
 
 # include <limits.h>
+# include <unistd.h>
+# include <stdio.h>
+# include "libft.h"
 
-typedef struct s_list
+/*typedef struct s_stack
 {
 	int				index;
 	void			*content;
-	struct s_list	*next;
-}		t_list;
+	void			*node;
+	struct s_stack	*next;
+}		t_stack;*/
 
 typedef struct s_data
 {
-	char	*s;
+	int	*s;
 }	t_data;
+
+int	partition(t_data *data, int low, int high);
+int	median(t_data *data, int low, int high);
+void	quick_sort(t_data *data, int low, int high);
+void	l_index(t_list **stack_a, t_data *data, int argc);
+void	ft_swap(int *a, int *b);
+void	sort_3(t_list **a);
+void	push(t_list **a, t_list **b);
+void	swap(t_list **x);
+void	rotate(t_list **a);
+void	r_rotate(t_list **a);
+void	sa(t_list **a);
+void	sb(t_list **b);
+void	ss(t_list **a, t_list **b);
+void	pa(t_list **a, t_list **b);
+void	pb(t_list **a, t_list **b);
+void	ra(t_list **a);
+void	rb(t_list **b);
+void	rr(t_list **a, t_list **b);
+void	rra(t_list **a);
+void	rrb(t_list **b);
+void	rrr(t_list **a, t_list **b);
 
 #endif

@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   push_swap_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmaeda <kmaeda@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/19 12:20:00 by kmaeda            #+#    #+#             */
-/*   Updated: 2025/05/19 12:41:04 by kmaeda           ###   ########.fr       */
+/*   Created: 2025/07/15 16:19:44 by kmaeda            #+#    #+#             */
+/*   Updated: 2025/07/15 18:32:12 by kmaeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
-t_list	*ft_lstnew(int *content)
+int	position(t_list **a, int target)
 {
-	t_list	*new;
+	int	pos;
+	t_list	*temp;
 
-	new = malloc(sizeof (t_list));
-	if (new == NULL)
-		return (NULL);
-	new->content = content;
-	new->next = NULL;
-	return (new);
+	pos = 0;
+	temp = *a;
+	while (temp)
+	{
+		if (temp->index == target)
+			return (pos);
+		temp = temp->next;
+		pos++;
+	}
+	return (-1);
 }

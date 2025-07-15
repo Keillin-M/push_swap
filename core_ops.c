@@ -53,7 +53,7 @@ void	r_rotate(t_list **a)
 	t_list	*last;
 	t_list	*second_last;
 
-	last = ft_lstlast(a);
+	last = ft_lstlast(*a);
 	second_last = *a;
 	while (second_last->next != last)
 		second_last = second_last->next;
