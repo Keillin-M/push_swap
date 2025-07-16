@@ -82,13 +82,14 @@ void	l_index(t_list **stack_a, t_data *data, int argc)
 	int		i;
 	t_list	*node;
 	
+	data->size = argc - 1;
 	node = *stack_a;
-	quick_sort(data, 0, argc - 2);
+	quick_sort(data, 0, data->size - 1);
 	node = *stack_a;
 	while (node != NULL)
 	{
 		i = 0;
-		while (i < argc - 1)
+		while (i < data->size)
 		{
 			if (data->s[i] == *(int *)node->content)
 			{

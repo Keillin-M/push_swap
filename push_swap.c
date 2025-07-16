@@ -90,6 +90,7 @@ int	get_input(int argc, char **argv, t_list **stack_a, t_data *data)
 int	main(int argc, char **argv)
 {
 	t_list	*stack_a = NULL;
+	t_list	*stack_b = NULL;
 	t_data	data;
 	t_list	*temp;
 
@@ -101,6 +102,11 @@ int	main(int argc, char **argv)
 	if (argc == 4)
 	{
 		sort_3(&stack_a);
+		return (0);
+	}
+	if (argc > 4)
+	{
+		radix_sort(&stack_a, &stack_b, &data);
 		return (0);
 	}
 	temp = stack_a;

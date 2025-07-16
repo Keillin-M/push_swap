@@ -28,6 +28,7 @@
 
 typedef struct s_data
 {
+	int	size;
 	int	*s;
 }	t_data;
 
@@ -52,5 +53,6 @@ void	rr(t_list **a, t_list **b);
 void	rra(t_list **a);
 void	rrb(t_list **b);
 void	rrr(t_list **a, t_list **b);
+void	radix_sort(t_list **a, t_list **b, t_data *data);
 
 #endif
