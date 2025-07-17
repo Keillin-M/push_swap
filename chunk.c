@@ -21,7 +21,7 @@ int	chunk_count(t_data *data)
 		target = 2;
 	else if (data->size <= 100)
 		target = 5;
-	else if (data->size > 100 && data->size <= 250)
+	else if (data->size <= 250)
 		target = 10;
 	else if (data->size > 250)
 		target = 20;
@@ -38,19 +38,20 @@ int	position(t_list **a, t_data *data)
 	first = *a;
 	last = first;
 	data->top_pos = -1;
-	while (i < data->new_size)
+	data->tail_pos = -1;
+	while (last != NULL && i < data->new_size)
 	{
-		if (last->index <= data->chunks)
+		if (last->index >= data->min && last->index < data->max)
 			data->tail_pos = i;
 		i++;
 		last = last->next;
 	}
-	while (first->index <= data->chunks)
+	while (first != NULL && first->index >= data->min && first->index < data->max)
 	{
 		data->top_pos++;
 		first = first->next;
 	}
-	if (data->top_pos < data->tail_pos)
+	if (data->top_pos != -1 && data->tail_pos != -1 && data->top_pos < data->tail_pos)
 		return (1);
 	else
 		return (0);
@@ -87,15 +88,26 @@ int	chunk_part(t_list **a, t_list **b, t_data *data)
 
 void	chunk_sort(t_list **a, t_list **b, t_data *data)
 {
+	int	found;
 	t_list	*temp;
 
-	temp = *a;
 	data->new_size = data->max - data->min;
-	while (temp)
+	while (1)
 	{
-		if (temp->index >= data->min && temp->index <= data->max)
-			chunk_part(a, b, data)
-		temp = temp->next;
+		temp = *a;
+		found = 0;
+		while (temp)
+		{
+			if (temp->index >= data->min && temp->index < data->max)
+			{
+				found = 1;
+				break ;
+			}
+			temp = temp->next;
+		}
+		if (!found)
+			break ;
+		chunk_part(a, b, data);
 	}
 }
 
@@ -103,11 +115,13 @@ void	chunk(t_list **a, t_list **b, t_data *data)
 {
 	int	i;
 	int	chunks;
+	int	remainder;
 
 	i = 0;
 	chunks = chunk_count(data);
 	remainder = data->size % chunks;
-	while (i < chunks)
+	data->chunk_size = data->size / chunks;
+	while (i < chunks - 1)
 	{
 		if (i < remainder)
 		{
@@ -123,4 +137,6 @@ void	chunk(t_list **a, t_list **b, t_data *data)
 		chunk_sort(a, b, data);
 		i++;
 	}
+// call function to sort a (last chunk left)
+	// find the biggest in B, using rotate and rr to bring back, then push to a
 }
