@@ -19,7 +19,8 @@ INCLUDES = -I. -ILibft
 LIBFT_DIR = Libft
 LIBFT_LIB = $(LIBFT_DIR)/libft.a
 
-SRCS = push_swap.c quick_sort.c core_ops.c push_swap_ops.c rotate_ops.c rev_rotate_ops.c sort.c radix.c
+SRCS = push_swap.c quick_sort.c core_ops.c push_swap_ops.c rotate_ops.c \
+	rev_rotate_ops.c sort.c chunk_sorting.c chunk_utils.c radix.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)

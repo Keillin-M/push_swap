@@ -6,7 +6,7 @@
 /*   By: kmaeda <kmaeda@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 15:56:28 by kmaeda            #+#    #+#             */
-/*   Updated: 2025/07/11 15:57:51 by kmaeda           ###   ########.fr       */
+/*   Updated: 2025/07/18 14:09:53 by kmaeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	main(int argc, char **argv)
 	}
 	if (argc > 4)
 	{
-		radix_sort(&stack_a, &stack_b, &data);
+		chunk_main(&stack_a, &stack_b, &data);
 		return (0);
 	}
 	temp = stack_a;

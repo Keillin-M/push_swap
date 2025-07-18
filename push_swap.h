@@ -18,22 +18,26 @@
 # include <stdio.h>
 # include "libft.h"
 
-/*typedef struct s_stack
-{
-	int				index;
-	void			*content;
-	void			*node;
-	struct s_stack	*next;
-}		t_stack;*/
-
 typedef struct s_data
 {
 	int	size;
+	int	target;
+	int	pos;
+	int	min;
+	int	max;
+	int	len;
+	int	new_size;
+	int	chunk_size;
+	int	top_pos;
+	int	tail_pos;
 	int	*s;
 }	t_data;
 
 int	partition(t_data *data, int low, int high);
 int	median(t_data *data, int low, int high);
+int	chunk_count(t_data *data);
+void	chunk_elements(t_list **a, t_list **b, t_data *data);
+void	chunk_main(t_list **a, t_list **b, t_data *data);
 void	quick_sort(t_data *data, int low, int high);
 void	l_index(t_list **stack_a, t_data *data, int argc);
 void	ft_swap(int *a, int *b);
