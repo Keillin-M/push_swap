@@ -77,12 +77,11 @@ void	quick_sort(t_data *data, int low, int high)
 	}
 }
 
-void	l_index(t_list **stack_a, t_data *data, int argc)
+void	l_index(t_list **stack_a, t_data *data)
 {
 	int		i;
 	t_list	*node;
 	
-	data->size = argc - 1;
 	node = *stack_a;
 	quick_sort(data, 0, data->size - 1);
 	node = *stack_a;

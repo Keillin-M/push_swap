@@ -12,78 +12,56 @@
 
 #include "push_swap.h"
 
-int	valid_int(const char *nptr)
+void	free_array(char **array)
 {
-	int		sign;
-	long	result;
+	int	i;
 
-	sign = 1;
-	result = 0;
-	while ((*nptr >= 9 && *nptr <= 13) || *nptr == ' ')
-		nptr++;
-	if (*nptr == '+' || *nptr == '-')
-	{
-		if (*nptr == '-')
-			sign = -sign;
-		nptr++;
-	}
-	while (*nptr >= '0' && *nptr <= '9')
-	{
-		result = result * 10 + (*nptr - '0');
-		if ((sign == 1 && result > 2147483647)
-			|| (sign == -1 && result > 2147483648))
-			return (1);
-		nptr++;
-	}
-	if (*nptr != '\0')
-		return (1);
-	return (0);
-}
-
-int	input_check(t_data *data, int num, int i)
-{
-	int	j;
-
-	j = 0;
-	while (j < i)
-	{
-		if (data->s[j] == num)
-		{
-			free(data->s);
-			return (1);
-		}
-		j++;
-	}
-	data->s[i] = num;
-	return (0);
-}
-
-int	get_input(int argc, char **argv, t_list **stack_a, t_data *data)
-{
-	int		i;
-	int		num;
-	int	*val;
-	t_list	*new;
-
-	data->s = malloc(sizeof(int) * (argc - 1));
-	if (!data->s)
-		return (perror("Error\n"), 1);
 	i = 0;
-	while (i < argc - 1)
+	while (array[i])
 	{
-		if (valid_int(argv[i + 1]))
-			return (perror ("Error\n"), 1);
-		num = ft_atoi(argv[i + 1]);
-		val = malloc(sizeof(int));
-		*val = num;
-		if (input_check(data, num, i))
-			return (perror ("Error\n"), 1);
-		new = ft_lstnew(val);
-		if (!new)
-			return (perror ("Error\n"), 1);
-		ft_lstadd_back(stack_a, new);
+		free(array[i]);
 		i++;
 	}
+	free(array);
+}
+
+void	free_stack(t_list **stack)
+{
+	t_list	*temp;
+
+	while(*stack)
+	{
+		temp = (*stack)->next;
+		free((*stack)->content);
+		free(*stack);
+		*stack = temp;
+	}
+}
+
+int	handle_args(int argc, char **argv, t_list **a, t_data *data)
+{
+	char ** input = NULL;
+
+	if (argc < 2)
+		return (1);
+	if (argc > 2)
+	{
+		if (input_join(argc, argv, data))
+			return (1);
+		input = ft_split(data->input, ' ');
+	}
+	else if (argc == 2)
+		input = ft_split(argv[1], ' ');
+	if (!input)
+		return (1);
+	if (get_input(a, data, input))
+		return (free_array(input), 1);
+	if (argc == 4)
+	{
+		sort_3(a);
+		return (free_array(input), 0);
+	}
+	free_array(input);
 	return (0);
 }
 
@@ -94,21 +72,11 @@ int	main(int argc, char **argv)
 	t_data	data;
 	t_list	*temp;
 
-	if (argc < 2)
+	data.s = NULL;
+	if (handle_args(argc, argv, &stack_a, &data))
 		return (1);
-	if (get_input(argc, argv, &stack_a, &data))
-		return (1);
-	l_index(&stack_a, &data, argc);
-	if (argc == 4)
-	{
-		sort_3(&stack_a);
-		return (0);
-	}
-	if (argc > 4)
-	{
-		chunk_main(&stack_a, &stack_b, &data);
-		return (0);
-	}
+	l_index(&stack_a, &data);
+	chunk_main(&stack_a, &stack_b, &data);
 	temp = stack_a;
 	while (temp)
 	{
@@ -121,6 +89,11 @@ int	main(int argc, char **argv)
 		free(stack_a);
 		stack_a = temp;
 	}
-	free(data.s);
+	free_stack(&stack_a);
+	free_stack(&stack_b);
+	if (argc > 2)
+		free(data.input);
+	if (data.s)
+		free(data.s);
 	return (0);
 }
