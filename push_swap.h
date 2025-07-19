@@ -20,25 +20,25 @@
 
 typedef struct s_data
 {
-	int	size;
-	int	target;
-	int	pos;
-	int	min;
-	int	max;
-	int	len;
-	int	new_size;
-	int	chunk_size;
-	int	top_pos;
-	int	tail_pos;
+	int		size;
+	int		target;
+	int		pos;
+	int		min;
+	int		max;
+	int		len;
+	int		new_size;
+	int		chunk_size;
+	int		top_pos;
+	int		tail_pos;
+	int		*s;
 	char	*input;
-	int	*s;
 }	t_data;
 
-int	partition(t_data *data, int low, int high);
-int	median(t_data *data, int low, int high);
-int	chunk_count(t_data *data);
-int	get_input(t_list **a, t_data *data, char **input);
-int	input_join(int argc, char **argv, t_data *data);
+int		partition(t_data *data, int low, int high);
+int		median(t_data *data, int low, int high);
+int		chunk_count(t_data *data);
+int		get_input(t_list **a, t_data *data, char **input);
+int		input_join(int argc, char **argv, t_data *data);
 void	chunk_elements(t_list **a, t_list **b, t_data *data);
 void	chunk_main(t_list **a, t_list **b, t_data *data);
 void	quick_sort(t_data *data, int low, int high);

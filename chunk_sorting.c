@@ -40,26 +40,25 @@ static void	chunk_mov(t_list **a, t_list **b, t_data *data, int pos)
 static int	close_pos(t_list **b, t_data *data)
 {
 	int		i;
-	int		size;
-	t_list	*higher;
+	t_list	*temp;
 
 	i = 0;
-	higher = *b;
-	size = data->target;
+	temp = *b;
 	data->pos = -1;
-	while (higher)
+	while (temp)
 	{
-		if (higher->index == size - 1)
+		if (temp->index == data->target - 1)
 		{
 			data->pos = i;
 			break ;
 		}
 		i++;
-		higher = higher->next;
+		data->target--;
+		temp = temp->next;
 	}
 	if (data->pos == -1)
 		return (-1);
-	else if (data->pos < size / 2)
+	else if (data->pos < data->target / 2)
 		return (1);
 	else
 		return (0);
@@ -78,7 +77,6 @@ static void	chunk_sort(t_list **a, t_list **b, t_data *data)
 			return ;
 		else
 			chunk_mov(a, b, data, pos);
-		data->target--;
 	}
 }
 

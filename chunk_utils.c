@@ -79,7 +79,7 @@ static int	chunk_part(t_list **a, t_list **b, t_data *data)
 
 	pos = pos_cost(a, data);
 	if (pos < 0)
-		return (1);
+		return (perror("Error\n"), 1);
 	else if (pos == 1)
 	{
 		while (data->top_pos > 0)

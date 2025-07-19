@@ -87,14 +87,14 @@ int	get_input(t_list **a, t_data *data, char **input)
 	while (input[data->size])
 	{
 		if (valid_int(input[data->size]))
-			return (perror ("Error\n"), 1);
+			return (ft_putstr_fd("Error\n", 2), 1);
 		data->size++;
 	}
 	data->s = malloc(sizeof(int) * data->size);
 	if (!data->s)
-		return (perror("Error\n"), 1);
+		return (ft_putstr_fd("Error\n", 2), 1);
 	if (create_stack(a, data, input))
-		return (perror ("Error\n"), 1);
+		return (ft_putstr_fd("Error\n", 2), 1);
 	return (0);
 }
 

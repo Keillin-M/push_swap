@@ -29,7 +29,7 @@ void	free_stack(t_list **stack)
 {
 	t_list	*temp;
 
-	while(*stack)
+	while (*stack)
 	{
 		temp = (*stack)->next;
 		free((*stack)->content);
@@ -40,8 +40,9 @@ void	free_stack(t_list **stack)
 
 int	handle_args(int argc, char **argv, t_list **a, t_data *data)
 {
-	char ** input = NULL;
+	char	**input;
 
+	input = NULL;
 	if (argc < 2)
 		return (1);
 	if (argc > 2)
@@ -56,39 +57,28 @@ int	handle_args(int argc, char **argv, t_list **a, t_data *data)
 		return (1);
 	if (get_input(a, data, input))
 		return (free_array(input), 1);
-	if (argc == 4)
-	{
-		sort_3(a);
-		return (free_array(input), 0);
-	}
 	free_array(input);
 	return (0);
 }
 
 int	main(int argc, char **argv)
 {
-	t_list	*stack_a = NULL;
-	t_list	*stack_b = NULL;
+	t_list	*stack_a;
+	t_list	*stack_b;
 	t_data	data;
-	t_list	*temp;
 
 	data.s = NULL;
+	stack_a = NULL;
+	stack_b = NULL;
 	if (handle_args(argc, argv, &stack_a, &data))
 		return (1);
 	l_index(&stack_a, &data);
+	if (ft_lstsize(stack_a) == 3)
+	{
+		sort_3(&stack_a);
+		return (0);
+	}
 	chunk_main(&stack_a, &stack_b, &data);
-	temp = stack_a;
-	while (temp)
-	{
-		ft_printf("Value[%d]: %d\n", temp->index, *(int *)temp->content);
-		temp = temp->next;
-	}
-	while (stack_a)
-	{
-		temp = stack_a->next;
-		free(stack_a);
-		stack_a = temp;
-	}
 	free_stack(&stack_a);
 	free_stack(&stack_b);
 	if (argc > 2)
