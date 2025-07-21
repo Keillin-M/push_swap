@@ -39,12 +39,13 @@ int		median(t_data *data, int low, int high);
 int		chunk_count(t_data *data);
 int		get_input(t_list **a, t_data *data, char **input);
 int		input_join(int argc, char **argv, t_data *data);
+void	sort_small(t_list **a, t_list **b);
+void	chunk_greedy(t_list **a, t_list **b, t_data *data);
 void	chunk_elements(t_list **a, t_list **b, t_data *data);
 void	chunk_main(t_list **a, t_list **b, t_data *data);
 void	quick_sort(t_data *data, int low, int high);
 void	l_index(t_list **stack_a, t_data *data);
 void	ft_swap(int *a, int *b);
-void	sort_3(t_list **a);
 void	push(t_list **a, t_list **b);
 void	swap(t_list **x);
 void	rotate(t_list **a);
@@ -60,6 +61,5 @@ void	rr(t_list **a, t_list **b);
 void	rra(t_list **a);
 void	rrb(t_list **b);
 void	rrr(t_list **a, t_list **b);
-void	radix_sort(t_list **a, t_list **b, t_data *data);
 
 #endif

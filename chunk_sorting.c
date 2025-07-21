@@ -12,13 +12,30 @@
 
 #include "push_swap.h"
 
+static int	get_max_index(t_list **b)
+{
+	int		max;
+	t_list	*temp;
+
+	max = -1;
+	temp = *b;
+	while (temp)
+	{
+		if (temp->index > max)
+			max = temp->index;
+		temp = temp->next;
+	}
+	return (max);
+}
+
 static void	chunk_mov(t_list **a, t_list **b, t_data *data, int pos)
 {
 	int	i;
 
+	i = data->len - data->pos;
 	if (pos == 1)
 	{
-		while (data->pos > 0 && data->len > 1)
+		while (data->pos != 0 && data->len > 0)
 		{
 			rb(b);
 			data->pos--;
@@ -27,8 +44,7 @@ static void	chunk_mov(t_list **a, t_list **b, t_data *data, int pos)
 	}
 	else if (pos == 0)
 	{
-		i = data->target - data->pos;
-		while (i > 0 && data->len > 1)
+		while (i > 0 && data->len > 0)
 		{
 			rrb(b);
 			i--;
@@ -47,18 +63,17 @@ static int	close_pos(t_list **b, t_data *data)
 	data->pos = -1;
 	while (temp)
 	{
-		if (temp->index == data->target - 1)
+		if (temp->index == data->target)
 		{
 			data->pos = i;
 			break ;
 		}
 		i++;
-		data->target--;
 		temp = temp->next;
 	}
 	if (data->pos == -1)
 		return (-1);
-	else if (data->pos < data->target / 2)
+	else if (data->pos <= data->len / 2)
 		return (1);
 	else
 		return (0);
@@ -68,15 +83,14 @@ static void	chunk_sort(t_list **a, t_list **b, t_data *data)
 {
 	int	pos;
 
-	data->target = data->size;
 	while (*b)
 	{
 		data->len = ft_lstsize(*b);
+		data->target = get_max_index(b);
 		pos = close_pos(b, data);
 		if (pos < 0)
 			return ;
-		else
-			chunk_mov(a, b, data, pos);
+		chunk_mov(a, b, data, pos);
 	}
 }
 
@@ -94,13 +108,13 @@ void	chunk_main(t_list **a, t_list **b, t_data *data)
 	{
 		if (i < remainder)
 		{
-			data->min = i * data->chunk_size;
-			data->max = (i + 1) * data->chunk_size + 1;
+			data->min = i * (data->chunk_size + 1);
+			data->max = data->min + data->chunk_size + 1;
 		}
 		else
 		{
-			data->min = i * data->chunk_size;
-			data->max = (i + 1) * data->chunk_size;
+			data->min = i * data->chunk_size + remainder;
+			data->max = data->min + data->chunk_size;
 		}
 		chunk_elements(a, b, data);
 		i++;

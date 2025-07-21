@@ -19,12 +19,14 @@ int	chunk_count(t_data *data)
 	target = 0;
 	if (data->size <= 10)
 		target = 2;
+	else if (data->size <= 50)
+		target = 3;
 	else if (data->size <= 100)
 		target = 5;
 	else if (data->size <= 250)
-		target = 10;
+		target = 7;
 	else if (data->size > 250)
-		target = 15;
+		target = 11;
 	return (target);
 }
 
@@ -79,7 +81,7 @@ static int	chunk_part(t_list **a, t_list **b, t_data *data)
 
 	pos = pos_cost(a, data);
 	if (pos < 0)
-		return (perror("Error\n"), 1);
+		return (1);
 	else if (pos == 1)
 	{
 		while (data->top_pos > 0)
@@ -87,7 +89,7 @@ static int	chunk_part(t_list **a, t_list **b, t_data *data)
 			ra(a);
 			data->top_pos--;
 		}
-		pb(a, b);
+		chunk_greedy(a, b, data);
 	}
 	else if (pos == 0)
 	{
@@ -96,7 +98,7 @@ static int	chunk_part(t_list **a, t_list **b, t_data *data)
 			rra(a);
 			data->tail_pos--;
 		}
-		pb(a, b);
+		chunk_greedy(a, b, data);
 	}
 	return (0);
 }

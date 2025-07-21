@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	free_array(char **array)
+static void	free_array(char **array)
 {
 	int	i;
 
@@ -25,7 +25,7 @@ void	free_array(char **array)
 	free(array);
 }
 
-void	free_stack(t_list **stack)
+static void	free_stack(t_list **stack)
 {
 	t_list	*temp;
 
@@ -38,7 +38,18 @@ void	free_stack(t_list **stack)
 	}
 }
 
-int	handle_args(int argc, char **argv, t_list **a, t_data *data)
+static int	is_sorted(t_list *stack)
+{
+	while (stack && stack->next)
+	{
+		if (stack->index > stack->next->index)
+			return (0);
+		stack = stack->next;
+	}
+	return (1);
+}
+
+static int	handle_args(int argc, char **argv, t_list **a, t_data *data)
 {
 	char	**input;
 
@@ -63,24 +74,23 @@ int	handle_args(int argc, char **argv, t_list **a, t_data *data)
 
 int	main(int argc, char **argv)
 {
-	t_list	*stack_a;
-	t_list	*stack_b;
+	t_list	*a;
+	t_list	*b;
 	t_data	data;
 
 	data.s = NULL;
-	stack_a = NULL;
-	stack_b = NULL;
-	if (handle_args(argc, argv, &stack_a, &data))
+	a = NULL;
+	b = NULL;
+	if (handle_args(argc, argv, &a, &data))
 		return (1);
-	l_index(&stack_a, &data);
-	if (ft_lstsize(stack_a) == 3)
-	{
-		sort_3(&stack_a);
-		return (0);
-	}
-	chunk_main(&stack_a, &stack_b, &data);
-	free_stack(&stack_a);
-	free_stack(&stack_b);
+	l_index(&a, &data);
+	if (is_sorted(a))
+		return (free_stack(&a), free(data.s), 1);
+	if (ft_lstsize(a) <= 5)
+		return (sort_small(&a, &b), free_stack(&a), free(data.s), 0);
+	chunk_main(&a, &b, &data);
+	free_stack(&a);
+	free_stack(&b);
 	if (argc > 2)
 		free(data.input);
 	if (data.s)
