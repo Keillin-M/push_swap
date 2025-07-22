@@ -54,6 +54,7 @@ static int	handle_args(int argc, char **argv, t_list **a, t_data *data)
 	char	**input;
 
 	input = NULL;
+	data->input = NULL;
 	if (argc < 2)
 		return (1);
 	if (argc > 2)
@@ -85,9 +86,10 @@ int	main(int argc, char **argv)
 		return (1);
 	l_index(&a, &data);
 	if (is_sorted(a))
-		return (free_stack(&a), free(data.s), 1);
+		return (free_stack(&a), free(data.s), free(data.input), 1);
 	if (ft_lstsize(a) <= 5)
-		return (sort_small(&a, &b), free_stack(&a), free(data.s), 0);
+		return (sort_small(&a, &b), free_stack(&a), free(data.s), \
+			free(data.input), 0);
 	chunk_main(&a, &b, &data);
 	free_stack(&a);
 	free_stack(&b);

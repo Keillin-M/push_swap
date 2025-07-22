@@ -102,6 +102,9 @@ void	sort_small(t_list **a, t_list **b)
 	int	n;
 
 	n = ft_lstsize(*a);
+	if (n == 2)
+		if ((*a)->index > (*a)->next->index)
+			sa(a);
 	if (n == 3)
 		sort_3(a);
 	if (n == 4)
