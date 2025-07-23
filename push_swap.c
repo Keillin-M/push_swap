@@ -12,32 +12,6 @@
 
 #include "push_swap.h"
 
-/*static void	free_array(char **array)
-{
-	int	i;
-
-	i = 0;
-	while (array[i])
-	{
-		free(array[i]);
-		i++;
-	}
-	free(array);
-}
-
-static void	free_stack(t_list **stack)
-{
-	t_list	*temp;
-
-	while (*stack)
-	{
-		temp = (*stack)->next;
-		free((*stack)->content);
-		free(*stack);
-		*stack = temp;
-	}
-}
-*/
 static int	is_sorted(t_list *stack)
 {
 	while (stack && stack->next)
@@ -83,24 +57,14 @@ int	main(int argc, char **argv)
 	a = NULL;
 	b = NULL;
 	if (handle_args(argc, argv, &a, &data))
-//		return (free_stack(&a), free(data.s), free(data.input), 1);
 		ft_exit(&a, &b, &data);
 	l_index(&a, &data);
 	if (is_sorted(a))
-//		return (free_stack(&a), free(data.s), free(data.input), 1);
 		ft_exit(&a, &b, &data);
 	if (ft_lstsize(a) <= 5)
-/*		return (sort_small(&a, &b), free_stack(&a), free(data.s), \
-			free(data.input), 0);*/
 		sort_small(&a, &b);
 	else
 		chunk_main(&a, &b, &data);
-/*	free_stack(&a);
-	free_stack(&b);
-	if (argc > 2)
-		free(data.input);
-	if (data.s)
-		free(data.s);*/
 	ft_exit(&a, &b, &data);
 	return (0);
 }
