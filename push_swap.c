@@ -6,13 +6,13 @@
 /*   By: kmaeda <kmaeda@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 15:56:28 by kmaeda            #+#    #+#             */
-/*   Updated: 2025/07/18 14:09:53 by kmaeda           ###   ########.fr       */
+/*   Updated: 2025/07/23 10:21:52 by kmaeda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	free_array(char **array)
+/*static void	free_array(char **array)
 {
 	int	i;
 
@@ -37,7 +37,7 @@ static void	free_stack(t_list **stack)
 		*stack = temp;
 	}
 }
-
+*/
 static int	is_sorted(t_list *stack)
 {
 	while (stack && stack->next)
@@ -83,19 +83,24 @@ int	main(int argc, char **argv)
 	a = NULL;
 	b = NULL;
 	if (handle_args(argc, argv, &a, &data))
-		return (1);
+//		return (free_stack(&a), free(data.s), free(data.input), 1);
+		ft_exit(&a, &b, &data);
 	l_index(&a, &data);
 	if (is_sorted(a))
-		return (free_stack(&a), free(data.s), free(data.input), 1);
+//		return (free_stack(&a), free(data.s), free(data.input), 1);
+		ft_exit(&a, &b, &data);
 	if (ft_lstsize(a) <= 5)
-		return (sort_small(&a, &b), free_stack(&a), free(data.s), \
-			free(data.input), 0);
-	chunk_main(&a, &b, &data);
-	free_stack(&a);
+/*		return (sort_small(&a, &b), free_stack(&a), free(data.s), \
+			free(data.input), 0);*/
+		sort_small(&a, &b);
+	else
+		chunk_main(&a, &b, &data);
+/*	free_stack(&a);
 	free_stack(&b);
 	if (argc > 2)
 		free(data.input);
 	if (data.s)
-		free(data.s);
+		free(data.s);*/
+	ft_exit(&a, &b, &data);
 	return (0);
 }
