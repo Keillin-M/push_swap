@@ -128,4 +128,5 @@ In this project I decided to implement a few different algorithms that I learned
 - I hard coded a sorting function for small number of elements (< 6 elements).
 - I implemented **Radix**, using binary - very short and good sorting algorithm for 100 elements (if my next sorting algorithm didn't work, I would go with this).
 - Finally, I tried to implement **Chunk Sort**, a very interesting way of sorting and a little more efficient for large set of elements and it also fit well with the operation restrictions of this project. Didn't have time to work too much in the greedy optimization, but it got really close to the max 5500 operations for 500 numbers.
-Result = 96%
+
+**Result = 96%**
